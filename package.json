@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "json-server -p 3001 db.json",
-    "test:e2e": "npm run build && playwright test"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.2",

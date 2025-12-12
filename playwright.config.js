@@ -3,10 +3,10 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: path.resolve(__dirname, 'backend/.env') })
 
-console.log('cwd:', process.cwd())
-console.log('MONGODB_URI loaded?', Boolean(process.env.MONGODB_URI))
+if (!process.env.CI) {
+  dotenv.config({ path: path.resolve(__dirname, 'backend/.env') })
+}
 
 // @ts-check
 import { defineConfig, devices } from '@playwright/test'
@@ -82,7 +82,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run start-prod',
+    command: 'npm run build && npm run start-prod',
     url: 'http://localhost:3001',
     reuseExistingServer: !process.env.CI,
   },
