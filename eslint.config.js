@@ -38,4 +38,28 @@ export default defineConfig([
     },
     rules: {},
   },
+  {
+    files: ['e2e/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {},
+  },
+  {
+    files: 'playwright.config.js',
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {},
+  },
 ])
