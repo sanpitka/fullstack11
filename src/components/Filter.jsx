@@ -10,7 +10,10 @@ const Filter = () => {
 
   return (
     <div style={style}>
-      <input placeholder="Filter" onChange={() => dispatch(setFilter(event.target.value))} />
+      <input 
+        placeholder="Filter" 
+        data-testid="filter" 
+        onChange={(event) => dispatch(setFilter(event.target.value))} />
     </div>
   )
 }
