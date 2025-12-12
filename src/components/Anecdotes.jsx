@@ -25,11 +25,11 @@ const Anecdotes = () => {
         .slice()
         .sort((a, b) => b.votes - a.votes)
         .map(anecdote => (
-        <div key={anecdote.id}>
-          <div>{anecdote.content}</div>
-          <div>
+        <div key={anecdote.id} data-testid="anecdote-item">
+          <div data-testid="anecdote-content">{anecdote.content}</div>
+          <div data-testid="anecdote-votes">
             has {anecdote.votes}
-            <button onClick={() => handleVote(anecdote.id)}>vote</button>
+            <button data-testid="vote-button" onClick={() => handleVote(anecdote.id)}>vote</button>
           </div>
         </div>
       ))}
