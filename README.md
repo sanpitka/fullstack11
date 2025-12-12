@@ -1,3 +1,3 @@
-# Anecdotes App
+# Anecdotes
 
-Tähän tulee ohjeet sovelluksen käyttöön.
+Tasks 6.3-6.19
