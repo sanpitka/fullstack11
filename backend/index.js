@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './backend/.env' })
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -7,7 +7,9 @@ const path = require('path')
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.use(express.static('dist'))
+
+const distPath = path.resolve(__dirname, 'dist')
+app.use(express.static(distPath))
 
 const anecdoteSchema = new mongoose.Schema({
   content: String,
@@ -67,7 +69,7 @@ app.put('/anecdotes/:id', async (req, res) => {
 })
 
 app.use((req, res) => {
-  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+  res.sendFile(path.join(distPath, 'index.html'))
 })
 
 const PORT = process.env.PORT || 3001
