@@ -51,7 +51,7 @@ export default defineConfig([
     rules: {},
   },
   {
-    files: 'playwright.config.js',
+    files: ['playwright.config.js'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.node,
