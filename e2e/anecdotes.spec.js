@@ -5,7 +5,7 @@ test('shows anecdotes', async ({ page }) => {
   await expect(page.getByText(/anecdote/i)).toBeVisible()
 })
 
-/* test('can create an anecdote', async ({ page }) => {
+test('can create an anecdote', async ({ page }) => {
   await page.goto('/')
   const text = `One does not simply write tests`
   await page.getByRole('textbox').fill(text)
@@ -13,7 +13,7 @@ test('shows anecdotes', async ({ page }) => {
   await expect(page.getByText(text)).toBeVisible()
 })
 
-test('can vote an anecdote', async ({ page }) => {
+/*test('can vote an anecdote', async ({ page }) => {
   await page.goto('/')
 
   const item = page
