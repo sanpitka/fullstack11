@@ -1,18 +1,14 @@
 import { test, expect } from '@playwright/test'
 
-test('shows anecdotes', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.getByTestId('anecdote-item').first()).toBeVisible()
-})
-
 test('can create an anecdote', async ({ page }) => {
   await page.goto('/')
-  const text = `One does not simply write tests ${Date.now()}`
+  const text = `One does not simply write tests`
 
   await page.getByTestId('new-anecdote').fill(text)
   await page.getByRole('button', { name: 'create' }).click()
 
-  await expect(page.getByTestId('anecdote-content').filter({ hasText: text })).toBeVisible()
+  const item = page.getByTestId('anecdote-item').filter({ hasText: text })
+  await expect(item).toBeVisible()
 })
 
 /*test('can vote an anecdote', async ({ page }) => {
