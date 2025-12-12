@@ -76,5 +76,8 @@ export default defineConfig({
     command: 'npm run start-prod',
     url: 'http://localhost:3001',
     reuseExistingServer: !process.env.CI,
+    env: {
+      MONGODB_URI: process.env.MONGODB_URI || '',
+    },
   },
 })
