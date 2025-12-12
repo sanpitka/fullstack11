@@ -1,9 +1,12 @@
 import dotenv from 'dotenv'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 dotenv.config({ path: path.resolve(__dirname, '.env') })
 
-  console.log('cwd:', process.cwd())
-  console.log('MONGODB_URI loaded?', Boolean(process.env.MONGODB_URI))
+console.log('cwd:', process.cwd())
+console.log('MONGODB_URI loaded?', Boolean(process.env.MONGODB_URI))
 
 // @ts-check
 import { defineConfig, devices } from '@playwright/test'
