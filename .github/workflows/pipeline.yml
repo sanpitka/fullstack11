@@ -19,3 +19,7 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+      - name: Copy frontend to backend
+        run: |
+          cp -r dist backend/
+      
