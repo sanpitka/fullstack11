@@ -1,9 +1,12 @@
 import dotenv from 'dotenv'
-dotenv.config()
+import path from 'path'
+dotenv.config({ path: path.resolve(__dirname, '.env') })
+
+  console.log('cwd:', process.cwd())
+  console.log('MONGODB_URI loaded?', Boolean(process.env.MONGODB_URI))
 
 // @ts-check
 import { defineConfig, devices } from '@playwright/test'
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -79,8 +82,5 @@ export default defineConfig({
     command: 'npm run start-prod',
     url: 'http://localhost:3001',
     reuseExistingServer: !process.env.CI,
-    env: {
-      MONGODB_URI: process.env.MONGODB_URI || '',
-    },
   },
 })
