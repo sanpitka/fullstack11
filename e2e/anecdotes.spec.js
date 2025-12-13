@@ -5,7 +5,7 @@ test('can create an anecdote', async ({ page }) => {
 
   const input = page.getByTestId('new-anecdote')
   console.log('input:', input)
-  const createButton = page.getByText('create')
+  const createButton = page.getByRole('button', { name: 'create' })
   console.log('createButton:', createButton)
   await input.fill('One does not simply write tests')
   await createButton.click()
