@@ -24,9 +24,8 @@ jobs:
       - name: Check style
         run: npm run lint
       - name: Build
-        run: |
+        run:
           npm run build
-          exit 1
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
@@ -43,9 +42,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: |
+          args: | 
             :warning: Build failed in {{ EVENT_PAYLOAD.repository.full_name }}
-            See more info: <a href="{{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }}">workflow run</a>
+            See more info: [workflow run]({{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }})
 
   tag_release:
     needs: [simple_deployment_pipeline]
