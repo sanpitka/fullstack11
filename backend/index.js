@@ -18,7 +18,18 @@ const anecdoteSchema = new mongoose.Schema({
 
 const Anecdote = mongoose.model('Anecdote', anecdoteSchema)
 
-mongoose.connect(process.env.MONGODB_URI)
+const mongoUri =
+  process.env.NODE_ENV === 'test'
+    ? process.env.MONGODB_URI_TEST
+    : process.env.MONGODB_URI
+
+console.log('NODE_ENV:', process.env.NODE_ENV)
+console.log(
+  'Using DB:',
+  process.env.NODE_ENV === 'test' ? 'TEST DB' : 'PROD DB'
+)
+
+mongoose.connect(mongoUri)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error(error.message))
 
