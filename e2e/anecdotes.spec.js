@@ -25,37 +25,14 @@ test('can vote an anecdote', async ({ page }) => {
   const beforeText = await item.getByTestId('anecdote-votes').textContent()
   console.log('🔢 Votes before:', beforeText)
 
-  const beforeCount = Number(beforeText.match(/has (\d+)/)[1])
+  const count = item.getByTestId('vote-count')
+  const beforeCount = Number(await count.textContent())
 
-  console.log('🖱️ Clicking vote')
   await item.getByTestId('vote-button').click()
 
-  console.log('⏳ Waiting for updated votes')
-  const votesAfter = page
-    .getByTestId('anecdote-item')
+  const countAfter = page.getByTestId('anecdote-item')
     .filter({ hasText: text })
-    .getByTestId('anecdote-votes')
+    .getByTestId('vote-count')
 
-  await expect(votesAfter).toHaveText(`has ${beforeCount + 1}`, { timeout: 15000 })
-
-  console.log('🎉 Vote updated successfully')
+  await expect(countAfter).toHaveText(String(beforeCount + 1), { timeout: 15000 })
 })
-
-
-
-/*test('can vote an anecdote', async ({ page }) => {
-  await page.goto('/')
-
-  const item = page
-    .getByTestId('anecdote-item')
-    .filter({ hasText: 'One does not simply write tests' })
-  const votes = item.getByTestId('anecdote-votes')
-  const voteButton = item.getByTestId('vote-button')
-
-  const before = await votes.textContent()
-  const beforeCount = Number(before.match(/has (\d+)/)[1])
-
-  await voteButton.click()
-
-  await expect(votes).toHaveText(`has ${beforeCount + 1}`)
-}) */

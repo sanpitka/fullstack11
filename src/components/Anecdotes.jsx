@@ -28,7 +28,7 @@ const Anecdotes = (props) => {
         <div key={anecdote.id} data-testid="anecdote-item">
           <div data-testid="anecdote-content">{anecdote.content}</div>
           <div data-testid="anecdote-votes">
-            has {anecdote.votes}
+            has <span data-testid="vote-count">{anecdote.votes}</span>
             <button data-testid="vote-button" onClick={() => handleVote(anecdote.id)}>vote</button>
           </div>
         </div>
