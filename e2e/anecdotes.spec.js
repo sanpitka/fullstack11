@@ -1,22 +1,29 @@
 import { test, expect } from '@playwright/test'
 
 test('can create an anecdote', async ({ page }) => {
-
-  page.on('request', req => {
-    if (req.url().includes('anecd')) console.log('REQ:', req.method(), req.url())
-  })
-
   await page.goto('/')
 
   const input = page.getByTestId('new-anecdote')
   const createButton = page.getByRole('button', { name: 'create' })
   await input.fill('One does not simply write tests')
   await createButton.click()
-  const anecdotes = page.getByTestId('anecdote-list')
-  console.log(await anecdotes.innerHTML())
-
   await expect(page.getByTestId('anecdote-list')).toContainText('One does not simply write tests')}
 )
+
+test('can vote an anecdote', async ({ page }) => {
+  await page.goto('/')
+
+  const item = page
+    .getByTestId('anecdote-item')
+    .filter({ hasText: 'If it hurts, do it more often' })
+  const votes = item.getByTestId('anecdote-votes')
+  const voteButton = item.getByTestId('vote-button')
+  const before = await votes.textContent()
+  const beforeCount = Number(before.match(/has (\d+)/)[1])
+
+  await voteButton.click()
+  await expect(votes).toHaveText(`has ${beforeCount + 1}`, { timeout: 15000 })
+})
 
 /*test('can vote an anecdote', async ({ page }) => {
   await page.goto('/')
