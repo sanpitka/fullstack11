@@ -35,6 +35,10 @@ if (process.env.NODE_ENV === 'test') {
   })
 }
 
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
 // API routes under /api
 app.get('/api/anecdotes', async (req, res) => {
   const anecdotes = await Anecdote.find({})
