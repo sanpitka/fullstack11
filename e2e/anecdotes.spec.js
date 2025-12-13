@@ -1,6 +1,15 @@
 import { test, expect } from '@playwright/test'
 
 test('can create an anecdote', async ({ page }) => {
+
+  page.on('console', msg => {
+  if (msg.type() === 'error') console.log('BROWSER CONSOLE ERROR:', msg.text())
+  })
+  page.on('pageerror', err => console.log('PAGE ERROR:', err))
+  page.on('requestfailed', req =>
+    console.log('REQUEST FAILED:', req.method(), req.url(), req.failure()?.errorText)
+  )
+
   await page.goto('/')
 
   const input = page.getByTestId('new-anecdote')
