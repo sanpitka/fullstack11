@@ -2,13 +2,21 @@ import { test, expect } from '@playwright/test'
 
 test('can create an anecdote', async ({ page }) => {
   await page.goto('/')
-  const text = `One does not simply write tests`
 
+  const text = `One does not simply write tests ${Date.now()}`
   await page.getByTestId('new-anecdote').fill(text)
+
+  const post = page.waitForResponse((res) =>
+    res.url().includes('/anecdotes') &&
+    res.request().method() === 'POST' &&
+    res.status() === 200
+  )
+
   await page.getByRole('button', { name: 'create' }).click()
+  await post
 
   const item = page.getByTestId('anecdote-item').filter({ hasText: text })
-  await expect(item).toBeVisible()
+  await expect(item).toBeVisible({ timeout: 15_000 })
 })
 
 /*test('can vote an anecdote', async ({ page }) => {
