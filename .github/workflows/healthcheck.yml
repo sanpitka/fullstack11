@@ -1,9 +1,6 @@
 name: Periodic health check
 
 on:
-  push:
-    branches: [ main ]
-
   schedule:
     - cron: "0 6 * * 1" # every monday at 06:00 UTC
 
