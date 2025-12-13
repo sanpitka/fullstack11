@@ -43,9 +43,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: | 
+          args: |
             Build failed in {{ EVENT_PAYLOAD.repository.full_name }} :warning:
-            More info: [workflow run]({{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }})
+            More info: [workflow run]({{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/&#8203;{{ GITHUB_RUN_ID }})
 
   tag_release:
     needs: [simple_deployment_pipeline]
