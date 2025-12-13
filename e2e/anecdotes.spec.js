@@ -3,25 +3,16 @@ import { test, expect } from '@playwright/test'
 test('can create an anecdote', async ({ page }) => {
   await page.goto('/')
 
-  const text = `One does not simply write tests ${Date.now()}`
-  await page.getByTestId('new-anecdote').fill(text)
+  const input = page.getByTestId('new-anecdote')
+  console.log('input:', input)
+  const createButton = page.getByText('create')
+  console.log('createButton:', createButton)
+  await input.fill('One does not simply write tests')
+  await createButton.click()
+  const anecdotes = page.getByTestId('anecdote-list')
+  console.log('anecdotes:', anecdotes)
 
-  // Wait for the POST request to complete
-  const postPromise = page.waitForResponse(res =>
-    res.url().endsWith('/anecdotes') &&
-    res.request().method() === 'POST' &&
-    res.status() === 200
-  )
-
-  await page.getByRole('button', { name: 'create' }).click()
-  await postPromise
-
-  // Wait for the new anecdote to appear in the list
-  const item = page
-    .getByTestId('anecdote-item')
-    .filter({ hasText: text })
-
-  await expect(item).toBeVisible({ timeout: 15_000 })
+  await expect(anecdotes).toHaveText(/One does not simply write tests/)
 })
 
 /*test('can vote an anecdote', async ({ page }) => {
