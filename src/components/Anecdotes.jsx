@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
-const Anecdotes = () => {
+const Anecdotes = (props) => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(({ filter, anecdotes }) => {
     if (filter.length > 0) {
@@ -20,7 +20,7 @@ const Anecdotes = () => {
   }
 
   return (
-    <div>
+    <div data-testid={props['data-testid']}>
       {anecdotes
         .slice()
         .sort((a, b) => b.votes - a.votes)
