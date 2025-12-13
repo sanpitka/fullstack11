@@ -12,7 +12,7 @@ test('can create an anecdote', async ({ page }) => {
   const anecdotes = page.getByTestId('anecdote-list')
   console.log('anecdotes:', anecdotes)
 
-  await expect(anecdotes).toHaveText(/One does not simply write tests/)
+  await expect(anecdotes).toHaveText('One does not simply write tests')
 })
 
 /*test('can vote an anecdote', async ({ page }) => {
