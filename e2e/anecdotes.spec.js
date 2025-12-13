@@ -36,3 +36,19 @@ test('can vote an anecdote', async ({ page }) => {
 
   await expect(countAfter).toHaveText(String(beforeCount + 1), { timeout: 15000 })
 })
+
+test('anecdotes can be filtered', async ({ page }) => {
+  await page.goto('/')
+
+  await expect(page.getByTestId('anecdote-item').first()).toBeVisible()
+
+  await page.getByTestId('filter').fill('hurts')
+
+  await expect(
+    page.getByTestId('anecdote-item').filter({ hasText: 'If it hurts, do it more often' })
+  ).toBeVisible()
+
+  await expect(
+    page.getByTestId('anecdote-item').filter({ hasText: 'Premature optimization is the root of all evil' })
+  ).toHaveCount(0)
+})
