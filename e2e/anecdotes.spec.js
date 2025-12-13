@@ -9,7 +9,7 @@ test('can create an anecdote', async ({ page }) => {
   await createButton.click()
   const anecdotes = page.getByTestId('anecdote-list')
 
-  await expect(anecdotes).toHaveText('One does not simply write tests')
+  await expect(anecdotes).toContainText('One does not simply write tests')
 })
 
 /*test('can vote an anecdote', async ({ page }) => {

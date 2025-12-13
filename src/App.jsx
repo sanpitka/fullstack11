@@ -19,7 +19,7 @@ const App = () => {
       <h2>Anecdotes</h2>
       <Notification />
       <Filter />
-      <Anecdotes />
+      <Anecdotes  data-testid="anecdote-list"/>
       <AnecdoteForm />
     </div>
   )
