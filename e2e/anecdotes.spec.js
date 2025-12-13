@@ -8,9 +8,10 @@ test('can create an anecdote', async ({ page }) => {
   await input.fill('One does not simply write tests')
   await createButton.click()
   const anecdotes = page.getByTestId('anecdote-list')
+  console.log(await anecdotes.innerHTML())
 
-  await expect(anecdotes).toContainText('One does not simply write tests')
-})
+  await expect(page.getByTestId('anecdote-list')).toContainText('One does not simply write tests')}
+)
 
 /*test('can vote an anecdote', async ({ page }) => {
   await page.goto('/')
