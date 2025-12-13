@@ -69,11 +69,11 @@ app.put('/api/anecdotes/:id', async (req, res) => {
   })
 })
 
-// SPA fallback (never for /api)
-app.get('*', (req, res) => {
-  if (req.path.startsWith('/api')) {
-    return res.status(404).json({ error: 'Unknown API endpoint' })
-  }
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'Unknown API endpoint' })
+})
+
+app.use((req, res) => {
   res.sendFile(path.join(distPath, 'index.html'))
 })
 
