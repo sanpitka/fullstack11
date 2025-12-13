@@ -45,9 +45,7 @@ jobs:
         with:
           args: |
             :warning: Build failed in {{ EVENT_PAYLOAD.repository.full_name }}
-            See more info: <a href="{{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }}">
-            workflow run
-            </a>
+            See more info: <a href="{{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }}">workflow run</a>
 
   tag_release:
     needs: [simple_deployment_pipeline]
