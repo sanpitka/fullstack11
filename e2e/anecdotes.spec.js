@@ -6,16 +6,21 @@ test('can create an anecdote', async ({ page }) => {
   const text = `One does not simply write tests ${Date.now()}`
   await page.getByTestId('new-anecdote').fill(text)
 
-  const post = page.waitForResponse((res) =>
-    res.url().includes('/anecdotes') &&
+  // Wait for the POST request to complete
+  const postPromise = page.waitForResponse(res =>
+    res.url().endsWith('/anecdotes') &&
     res.request().method() === 'POST' &&
     res.status() === 200
   )
 
   await page.getByRole('button', { name: 'create' }).click()
-  await post
+  await postPromise
 
-  const item = page.getByTestId('anecdote-item').filter({ hasText: text })
+  // Wait for the new anecdote to appear in the list
+  const item = page
+    .getByTestId('anecdote-item')
+    .filter({ hasText: text })
+
   await expect(item).toBeVisible({ timeout: 15_000 })
 })
 
