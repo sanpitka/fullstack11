@@ -1,5 +1,41 @@
 import { test, expect } from '@playwright/test'
 
+const initialAnecdotes = [
+  {
+    content: 'If it hurts, do it more often',
+    votes: 4,
+  },
+  {
+    content: 'Adding manpower to a late software project makes it later!',
+    votes: 0,
+  },
+  {
+    content:
+      'The first 90 percent of the code accounts for the first 10 percent of the development time...',
+    votes: 0,
+  },
+  {
+    content:
+      'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    votes: 0,
+  },
+  {
+    content: 'Premature optimization is the root of all evil.',
+    votes: 0,
+  },
+  {
+    content:
+      'Debugging is twice as hard as writing the code in the first place...',
+    votes: 2,
+  },
+]
+
+test.beforeAll(async ({ request }) => {
+  await request.post('/api/testing/seed', {
+    data: initialAnecdotes,
+  })
+})
+
 //A simple test for creating an anecdote
 test('can create an anecdote', async ({ page }) => {
   await page.goto('/')
