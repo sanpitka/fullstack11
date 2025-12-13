@@ -22,7 +22,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error(error.message))
 
-app.get('/anecdotes', async (req, res) => {
+// API routes under /api
+app.get('/api/anecdotes', async (req, res) => {
   const anecdotes = await Anecdote.find({})
   res.json(anecdotes.map(a => ({
     id: a._id.toString(),
@@ -31,7 +32,7 @@ app.get('/anecdotes', async (req, res) => {
   })))
 })
 
-app.get('/anecdotes/:id', async (req, res) => {
+app.get('/api/anecdotes/:id', async (req, res) => {
   const anecdote = await Anecdote.findById(req.params.id)
   if (!anecdote) {
     return res.status(404).json({ error: 'Anecdote not found' })
@@ -43,7 +44,7 @@ app.get('/anecdotes/:id', async (req, res) => {
   })
 })
 
-app.post('/anecdotes', async (req, res) => {
+app.post('/api/anecdotes', async (req, res) => {
   const { content, votes } = req.body
   const anecdote = new Anecdote({ content, votes })
   const saved = await anecdote.save()
@@ -54,7 +55,7 @@ app.post('/anecdotes', async (req, res) => {
   })
 })
 
-app.put('/anecdotes/:id', async (req, res) => {
+app.put('/api/anecdotes/:id', async (req, res) => {
   const { content, votes } = req.body
   const updated = await Anecdote.findByIdAndUpdate(
     req.params.id,
@@ -68,7 +69,11 @@ app.put('/anecdotes/:id', async (req, res) => {
   })
 })
 
-app.use((req, res) => {
+// SPA fallback (never for /api)
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'Unknown API endpoint' })
+  }
   res.sendFile(path.join(distPath, 'index.html'))
 })
 
