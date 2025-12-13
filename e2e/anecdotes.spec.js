@@ -4,13 +4,10 @@ test('can create an anecdote', async ({ page }) => {
   await page.goto('/')
 
   const input = page.getByTestId('new-anecdote')
-  console.log('input:', input)
   const createButton = page.getByRole('button', { name: 'create' })
-  console.log('createButton:', createButton)
   await input.fill('One does not simply write tests')
   await createButton.click()
   const anecdotes = page.getByTestId('anecdote-list')
-  console.log('anecdotes:', anecdotes)
 
   await expect(anecdotes).toHaveText('One does not simply write tests')
 })

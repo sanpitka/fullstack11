@@ -20,7 +20,7 @@ const Anecdotes = () => {
   }
 
   return (
-    <div>
+    <div data-testid="anecdote-list">
       {anecdotes
         .slice()
         .sort((a, b) => b.votes - a.votes)
