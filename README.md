@@ -1,3 +1,3 @@
-# Anecdotes
+# Anecdotes with CI/CD
 
-Tasks 6.3-6.19
+Pokedex tasks in https://github.com/sanpitka/full-stack-open-pokedex
