@@ -42,8 +42,8 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: | 
-            Build failed in {{ EVENT_PAYLOAD.repository.full_name }} :warning:
-            More info: [workflow run]({{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }})
+            :warning: Build failed in {{ EVENT_PAYLOAD.repository.full_name }}
+            See more info: [workflow run]({{ GITHUB_SERVER_URL }}/{{ GITHUB_REPOSITORY }}/actions/runs/{{ GITHUB_RUN_ID }})
 
   tag_release:
     needs: [simple_deployment_pipeline]
